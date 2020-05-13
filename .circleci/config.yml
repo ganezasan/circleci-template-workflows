@@ -1,0 +1,27 @@
+jobs:
+  build:
+    executor:
+      name: win/default
+      shell: bash.exe
+    steps:
+    - checkout
+    - run:
+        command: |
+          echo $PATH
+orbs:
+  win: circleci/windows@2.4.0
+version: 2.1
+workflows:
+  nightly:
+    jobs:
+    - build
+    triggers:
+    - schedule:
+        cron: 0 0 1 * *
+        filters:
+          branches:
+            only:
+            - master
+  workflow:
+    jobs:
+    - build

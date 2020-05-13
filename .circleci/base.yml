@@ -1,0 +1,20 @@
+version: 2.1
+
+orbs:
+  win: circleci/windows@2.4.0
+jobs:
+  build:
+    executor:
+      name: win/default
+      shell: bash.exe
+    steps:
+      - checkout
+      - run:
+         command: |
+            echo $PATH
+            echo 'export PATH=/c/Users/circleci/project:$PATH' >> $BASH_ENV
+            source $BASH_ENV
+            echo $PATH
+      - run:
+          shell: cmd.exe
+          command: test.bat
